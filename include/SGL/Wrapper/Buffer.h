@@ -56,7 +56,7 @@ namespace GL
 
         void unbind() const
         {
-            glBindBuffer(static_cast<uint32_t>(type), m_Buffer);
+            glBindBuffer(static_cast<uint32_t>(type), 0);
         }
 
         template<typename Ty>
