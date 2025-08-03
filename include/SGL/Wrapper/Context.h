@@ -46,6 +46,10 @@ namespace GL
 
         void drawElements(PrimitiveType mode, int count, DataType type, const void* indices) const;
 
+        void drawArraysInstanced(PrimitiveType mode, int first, int count, int instancecount) const;
+
+        void drawElementsInstanced(PrimitiveType mode, int count,DataType type,const void* indices,int instancecount) const;
+
         friend class sgl::Window;
     };
 } // GL

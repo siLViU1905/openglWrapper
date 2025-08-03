@@ -41,4 +41,14 @@ namespace GL
     {
         glDrawElements(static_cast<uint32_t>(mode), count, static_cast<uint32_t>(type), indices);
     }
+
+    void Context::drawArraysInstanced(PrimitiveType mode, int first, int count, int instancecount) const
+    {
+        glDrawArraysInstanced(static_cast<uint32_t>(mode),first, count, instancecount);
+    }
+
+    void Context::drawElementsInstanced(PrimitiveType mode, int count,DataType type,const void* indices,int instancecount) const
+    {
+        glDrawElementsInstanced(static_cast<uint32_t>(mode), count,static_cast<uint32_t>(type),indices, instancecount);
+    }
 } // GL

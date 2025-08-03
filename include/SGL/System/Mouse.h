@@ -20,7 +20,6 @@ namespace sgl
         {
             RELEASE = GLFW_RELEASE,
             PRESS = GLFW_PRESS,
-            REPEAT = GLFW_REPEAT
         };
 
         static bool isButtonPressed(Button button);

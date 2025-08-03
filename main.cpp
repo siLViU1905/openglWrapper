@@ -13,11 +13,6 @@ int main()
 
     sgl::Window window(logger, 4, 6, 600, 600, "Sample");
 
-    //callback per keys
-    window.setKeyCallback(sgl::Keyboard::Key::B, sgl::Keyboard::Action::PRESS, []() { std::cout << "B pressed!\n"; });
-
-    window.setButtonCallback(sgl::Mouse::Button::LEFT, sgl::Mouse::Action::RELEASE,
-                             []() { std::cout << "Left click released\n"; });
 
     const auto &context = window.getContext();
 
@@ -76,7 +71,7 @@ int main()
 
         vao.bind();
 
-        context.drawElements(GL::PrimitiveType::TRIANGLES, 6, GL::DataType::UNSIGNED_INT, nullptr);
+        context.drawElementsInstanced(GL::PrimitiveType::TRIANGLES, 6,GL::DataType::UNSIGNED_INT, nullptr, 5);
 
         vao.unbind();
 
@@ -91,6 +86,6 @@ int main()
             window.close();
 
         if (event.windowState == sgl::WindowState::RESIZED)
-            std::cout << "New window size! width: " << window.getWidth() << " height: " << window.getHeight() << '\n';
+            context.setViewport(0, 0, window.getWidth(), window.getHeight());
     }
 }
