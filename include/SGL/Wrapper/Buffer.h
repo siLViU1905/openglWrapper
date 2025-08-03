@@ -24,11 +24,15 @@ namespace GL
             glGenBuffers(1, &m_Buffer);
         }
 
+        Buffer(const Buffer& buffer) = delete;
+
         constexpr Buffer(Buffer &&buffer) noexcept : m_Buffer(buffer.m_Buffer),
                                                      m_Usage(buffer.m_Usage)
         {
             buffer.m_Buffer = 0;
         }
+
+        Buffer& operator=(const Buffer& buffer) = delete;
 
         Buffer &operator=(Buffer &&buffer) noexcept
         {
