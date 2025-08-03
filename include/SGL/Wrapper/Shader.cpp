@@ -44,11 +44,12 @@ namespace GL
                         logger->log(infoLog);
                     return false;
                 }
+
+                delete shaderCode;
             } else
             {
                 m_FragmentShader = glCreateShader(static_cast<uint32_t>(type));
 
-                m_FragmentShader = glCreateShader(static_cast<uint32_t>(type));
                 glShaderSource(m_FragmentShader, 1, &shaderCode, nullptr);
                 glCompileShader(m_FragmentShader);
 
@@ -63,6 +64,7 @@ namespace GL
                         logger->log(infoLog);
                     return false;
                 }
+                delete shaderCode;
             }
         } else
         {
