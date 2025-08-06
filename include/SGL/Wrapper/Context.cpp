@@ -44,11 +44,33 @@ namespace GL
 
     void Context::drawArraysInstanced(PrimitiveType mode, int first, int count, int instancecount) const
     {
-        glDrawArraysInstanced(static_cast<uint32_t>(mode),first, count, instancecount);
+        glDrawArraysInstanced(static_cast<uint32_t>(mode), first, count, instancecount);
     }
 
-    void Context::drawElementsInstanced(PrimitiveType mode, int count,DataType type,const void* indices,int instancecount) const
+    void Context::drawElementsInstanced(PrimitiveType mode, int count, DataType type, const void *indices,
+                                        int instancecount) const
     {
-        glDrawElementsInstanced(static_cast<uint32_t>(mode), count,static_cast<uint32_t>(type),indices, instancecount);
+        glDrawElementsInstanced(static_cast<uint32_t>(mode), count, static_cast<uint32_t>(type), indices,
+                                instancecount);
+    }
+
+    void Context::activeTexture(uint32_t index) const
+    {
+        glActiveTexture(GL_TEXTURE0 + index);
+    }
+
+    void Context::texImage2D(TextureType type, int level, FWHP &fwhp, int border,
+                             DataType dataType) const
+    {
+        glTexImage2D(static_cast<uint32_t>(type), level, static_cast<int>(fwhp.format), fwhp.width, fwhp.height, border,
+                     static_cast<uint32_t>(fwhp.format), static_cast<uint32_t>(dataType), fwhp.pixels);
+
+        if (fwhp.pixels)
+            stbi_image_free(fwhp.pixels);
+    }
+
+    void Context::generateMipMap(TextureType type) const
+    {
+        glGenerateMipmap(static_cast<uint32_t>(type));
     }
 } // GL

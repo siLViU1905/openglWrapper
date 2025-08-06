@@ -18,7 +18,15 @@ namespace GL
     public:
         Shader();
 
+        Shader(const Shader&) = delete;
+
+        Shader(Shader&& shader) noexcept;
+
         Shader(sgl::Logger& logger);
+
+        Shader& operator=(const Shader&) = delete;
+
+        Shader& operator=(Shader&& shader) noexcept ;
 
         bool compile(ShaderType type, const std::string& path);
 
@@ -27,6 +35,8 @@ namespace GL
         void bind() const;
 
         void unbind() const;
+
+        void setUniformInt(const std::string& name, int value) const;
 
         void setUniformVec3(const std::string& name, const float* ptr, int count = 1) const;
 

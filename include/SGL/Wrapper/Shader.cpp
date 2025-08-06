@@ -9,6 +9,22 @@ namespace GL
         m_Program = glCreateProgram();
     }
 
+    Shader::Shader(Shader &&shader) noexcept : m_Program(shader.m_Program), m_VertexShader(shader.m_VertexShader), m_FragmentShader(shader.m_FragmentShader)
+    {
+        shader.m_Program = 0;
+    }
+
+    Shader & Shader::operator=(Shader &&shader) noexcept
+    {
+        m_Program = shader.m_Program;
+        m_VertexShader = shader.m_VertexShader;
+        m_FragmentShader = shader.m_FragmentShader;
+
+        shader.m_Program = 0;
+
+        return *this;
+    }
+
     Shader::Shader(sgl::Logger &logger): logger(&logger)
     {
         m_Program = glCreateProgram();
@@ -109,6 +125,11 @@ namespace GL
     void Shader::unbind() const
     {
         glUseProgram(0);
+    }
+
+    void Shader::setUniformInt(const std::string &name, int value) const
+    {
+        glUniform1i(glGetUniformLocation(m_Program, name.c_str()), value);
     }
 
     void Shader::setUniformVec3(const std::string &name, const float *ptr, int count) const

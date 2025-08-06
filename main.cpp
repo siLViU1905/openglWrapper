@@ -27,12 +27,12 @@ int main()
 
     shader.link();
 
-    float vertices[12] =
+    float vertices[20] =
     {
-        -0.5f, -0.5f, 0.f,
-        0.5f, -0.5f, 0.f,
-        0.5f, 0.5f, 0.f,
-        -0.5f, 0.5f, 0.f,
+        -0.5f, -0.5f, 0.f, 0.f, 0.f,
+        0.5f, -0.5f, 0.f, 1.f, 0.f,
+        0.5f, 0.5f, 0.f, 1.f, 1.f,
+        -0.5f, 0.5f, 0.f, 0.f, 1.f
     };
 
     uint32_t indices[6] =
@@ -40,6 +40,26 @@ int main()
         0, 1, 2,
         0, 2, 3
     };
+
+    GL::Texture2D texture;
+
+    texture.bind();
+
+    auto fwhp = texture.load("../opengl_logo.png");
+
+    if (!fwhp.pixels)
+        logger.log("Texture failed loading");
+
+    texture.parameter(GL::TextureParam::WRAP_S, GL::WrapMode::REPEAT);
+    texture.parameter(GL::TextureParam::WRAP_T, GL::WrapMode::REPEAT);
+    texture.parameter(GL::TextureParam::MIN_FILTER, GL::FilterMode::LINEAR_MIPMAP_LINEAR);
+    texture.parameter(GL::TextureParam::MAG_FILTER, GL::FilterMode::LINEAR);
+
+    context.texImage2D(GL::TextureType::T_2D, 0, fwhp, 0, GL::DataType::UNSIGNED_BYTE);
+
+    context.generateMipMap(GL::TextureType::T_2D);
+
+    texture.unbind();
 
     GL::VertexArray vao;
 
@@ -51,15 +71,19 @@ int main()
 
     vbo.bind();
 
-    vbo.data(vertices, 12);
+    vbo.data(vertices, 20);
 
     ebo.bind();
 
     ebo.data(indices, 6);
 
-    vao.attribPointer(0, 3, GL::DataType::FLOAT, false, 3 * sizeof(float), nullptr);
+    vao.attribPointer(0, 3, GL::DataType::FLOAT, false, 5 * sizeof(float), nullptr);
 
     vao.enableAttrib(0);
+
+    vao.attribPointer(1, 2, GL::DataType::FLOAT, false, 5 * sizeof(float), reinterpret_cast<void *>(3 * sizeof(float)));
+
+    vao.enableAttrib(1);
 
     vao.unbind();
 
@@ -69,11 +93,19 @@ int main()
 
         shader.bind();
 
+        context.activeTexture(0);
+
+        texture.bind();
+
+        shader.setUniformInt("aTex", 0);
+
         vao.bind();
 
-        context.drawElementsInstanced(GL::PrimitiveType::TRIANGLES, 6,GL::DataType::UNSIGNED_INT, nullptr, 5);
+        context.drawElements(GL::PrimitiveType::TRIANGLES, 6, GL::DataType::UNSIGNED_INT, nullptr);
 
         vao.unbind();
+
+        texture.unbind();
 
         shader.unbind();
 
@@ -88,4 +120,6 @@ int main()
         if (event.windowState == sgl::WindowState::RESIZED)
             context.setViewport(0, 0, window.getWidth(), window.getHeight());
     }
+
+    std::cout << logger;
 }

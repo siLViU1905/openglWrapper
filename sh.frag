@@ -1,13 +1,13 @@
 #version 460
 
 in vec3 FragPos;
+in vec2 TexCoords;
 
 out vec4 FragColor;
 
+uniform sampler2D aTex;
+
 void main()
 {
-    vec3 result = normalize(FragPos) + vec3(0.2);
-
-
-    FragColor = vec4(result, 1.0);
+    FragColor = texture(aTex, TexCoords);
 }

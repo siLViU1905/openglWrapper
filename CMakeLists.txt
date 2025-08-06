@@ -20,6 +20,8 @@ add_executable(openglWrapper
         include/SGL/Wrapper/Shader.cpp
         include/SGL/System/Event.cpp
         include/SGL/System/Mouse.cpp
+        include/SGL/Wrapper/FWHP.cpp
+        include/SGL/System/Stb_Image_Implementation.cpp
 )
 
 if (WIN32)

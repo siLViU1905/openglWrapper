@@ -7,6 +7,7 @@
 #include "Capability.h"
 #include "PrimitiveType.h"
 #include "DataType.h"
+#include "Texture.h"
 
 namespace sgl
 {
@@ -49,6 +50,14 @@ namespace GL
         void drawArraysInstanced(PrimitiveType mode, int first, int count, int instancecount) const;
 
         void drawElementsInstanced(PrimitiveType mode, int count,DataType type,const void* indices,int instancecount) const;
+
+        void activeTexture(uint32_t index) const;
+
+        //ATTENTION!!!
+        //it also dealocates fwhp.pixels if it is not nullptr
+        void texImage2D(TextureType type, int level, FWHP& fwhp, int border, DataType dataType) const;
+
+        void generateMipMap(TextureType type) const;
 
         friend class sgl::Window;
     };

@@ -1,0 +1,28 @@
+#ifndef TEXTURETYPE_H
+#define TEXTURETYPE_H
+#include "../../GL/glad.h"
+
+namespace GL
+{
+    enum class TextureType
+    {
+        T_1D = GL_TEXTURE_1D,
+        T_2D = GL_TEXTURE_2D,
+        T_3D = GL_TEXTURE_3D,
+
+        CUBE_MAP = GL_TEXTURE_CUBE_MAP,
+
+        T_1D_ARRAY = GL_TEXTURE_1D_ARRAY,
+        T_2D_ARRAY = GL_TEXTURE_2D_ARRAY,
+        CUBE_MAP_ARRAY = GL_TEXTURE_CUBE_MAP_ARRAY,
+
+        RECTANGLE = GL_TEXTURE_RECTANGLE,
+
+        BUFFER = GL_TEXTURE_BUFFER,
+
+        T_2D_MULTISAMPLE = GL_TEXTURE_2D_MULTISAMPLE,
+        T_2D_MULTISAMPLE_ARRAY = GL_TEXTURE_2D_MULTISAMPLE_ARRAY
+    };
+} // GL
+
+#endif //TEXTURETYPE_H
