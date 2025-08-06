@@ -16,7 +16,7 @@ int main()
 
     const auto &context = window.getContext();
 
-    context.setClearColor(0.4f, 0.2f, 0.6f, 1.f);
+    context.setClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
     context.enable(GL::Capability::DEPTH_TEST);
 
@@ -45,7 +45,7 @@ int main()
 
     texture.bind();
 
-    auto fwhp = texture.load("../opengl_logo.png");
+    auto fwhp = texture.load("../wall.jpg");
 
     if (!fwhp.pixels)
         logger.log("Texture failed loading");
